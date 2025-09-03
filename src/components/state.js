@@ -1,0 +1,32 @@
+export const state = [
+  {
+    name:"scene1",
+    camera:{
+      cameraStartPosition:(200, 150, 250),
+      cameraEndPosition:(0,0,0),
+    },
+    jet:{
+      jetStartPosition:(50,100,0),
+      jetEndPosition:(0,50,0),
+    },
+    lights:{
+      ambientLight:(0,0,0),
+      directionalLight:(0,0,0)
+    }
+  },
+  {
+    name:"scene2",
+    camera:{
+      cameraStartPosition:(0,0,0),
+      cameraEndPosition:(0,0,0),
+    },
+    jet:{
+      jetStartPosition:(0,0,0),
+      jetEndPosition:(0,0,0),
+    },
+    lights:{
+      ambientLight:(0,0,0),
+      directionalLight:(0,0,0)
+    },
+  }
+]

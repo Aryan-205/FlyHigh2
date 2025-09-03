@@ -1,6 +1,5 @@
 import LandningPage from './components/LandingPage'
 import TopDownScene from './components/TopDownScene'
-import DownToUp from './components/DownToUp';
 import CockpitScene from './components/CockpitScene';
 import {motion} from 'motion/react'
 
@@ -19,9 +18,8 @@ export default function App() {
                 </div>
             </motion.div> */}
             <LandningPage/>
-            <TopDownScene/>
-            <DownToUp/>
-            <CockpitScene/>
+            {/* <TopDownScene/>
+            <CockpitScene/> */}
             
         </div>
     );
