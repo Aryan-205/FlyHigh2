@@ -1,34 +1,37 @@
 import gsap,{Power1} from 'gsap'
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import TopDownScene from './components/TopDownScene';
 
 export default function App() {
-    useEffect(()=>{
-        const tl = gsap.timeline()
 
-        tl.to("#textBox1", {
-        opacity: 0,              
-        delay: 0.5,
-        duration: 1.5,
-        ease: Power1.out,
-        onComplete: () => {
-            gsap.set("#textBox1", { display: "none" }) 
-        }
-        })
-        .to("#textBox2", {
-        opacity: 1, 
-        duration: 1.5,
-        ease: Power1.out
-        })
-        .to("#TextScene", {
-        opacity: 0,
-        duration: 1.5,
-        ease: Power1.out,
-        onComplete: ()=>{
-            gsap.set("#TextScene",{ display: none })
-        }
-        }, "+=2")
-    },[])
+    const wrapperRef = useRef(null)
+
+    // useEffect(()=>{
+    //     const tl = gsap.timeline()
+
+    //     tl.to("#textBox1", {
+    //     opacity: 0,              
+    //     delay: 0.5,
+    //     duration: 1.5,
+    //     ease: Power1.out,
+    //     onComplete: () => {
+    //         gsap.set("#textBox1", { display: "none" }) 
+    //     }
+    //     })
+    //     .to("#textBox2", {
+    //     opacity: 1, 
+    //     duration: 1.5,
+    //     ease: Power1.out
+    //     })
+    //     .to("#TextScene", {
+    //     opacity: 0,
+    //     duration: 1.5,
+    //     ease: Power1.out,
+    //     onComplete: ()=>{
+    //         gsap.set("#TextScene",{ display: none })
+    //     }
+    //     }, "+=2")
+    // },[])
 
     return (
         <div className="w-full relative">
@@ -42,7 +45,7 @@ export default function App() {
                         <p className="text-white text-9xl font-bold">FLY HIGH</p>
                     </div>
                 </div> */}
-                <TopDownScene/>
+                <TopDownScene wrapperRef={wrapperRef} />
             </div>
         </div>
     );

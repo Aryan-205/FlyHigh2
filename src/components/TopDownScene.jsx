@@ -2,13 +2,14 @@ import { useEffect, useRef } from "react"
 import * as THREE from 'three' 
 import { getModel } from "../models/model"
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import ScrollTrigger from "gsap-trial/ScrollTrigger";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger)
 
-export default function TopDownScene(){
+export default function TopDownScene({ wrapperRef }){
   const mountRef = useRef(null)
   const jetRef = useRef(null)
-  let progressQ = 0
+  const progressQ = useRef(0)
 
   useEffect(()=>{
     const scene = new THREE.Scene()
@@ -45,7 +46,8 @@ export default function TopDownScene(){
     })
 
     const startJetPos = new THREE.Vector3(0, 0, 0);
-    const endJetPos = new THREE.Vector3(0, 100, 300);
+    const midJetPos = new THREE.Vector3(0, 0, -800);
+    const endJetPos = new THREE.Vector3(0, 100, -1600);
 
     getModel("/jetWithLanding.glb").then(gltf => {
       const jetModel = gltf.scene
@@ -76,8 +78,22 @@ export default function TopDownScene(){
       frameId = requestAnimationFrame(animate)
       progressP = Math.min(progressP + 0.005, 1)
       camera.position.lerpVectors(startCamPos, endCamPos, progressP)
-      //jetRef.current.position.lerpVectors(startJetPos, endJetPos, progressP)
-      camera.lookAt(0,0,0)
+      // if(jetRef.current){
+      //   jetRef.current.position.lerpVectors(startJetPos, endJetPos, progressQ.current)
+      // }
+      if (jetRef.current) {
+        const p = progressQ.current
+        camera.lookAt(jetRef.current.position)
+        if (p < 0.5) {
+          // Phase 1: Start → Mid
+          //const segmentProgress = p / 0.5
+          jetRef.current.position.lerpVectors(startJetPos, midJetPos, p)
+        } else {
+          // Phase 2: Mid → End
+          //const segmentProgress = (p - 0.5) / 0.5
+          jetRef.current.position.lerpVectors(midJetPos, endJetPos, p)
+        }
+      }
     
       renderer.render(scene, camera)
     }
@@ -103,16 +119,15 @@ export default function TopDownScene(){
   
   useEffect(()=>{
 
-    ScrollTrigger.create = {
-      trigger:mountRef.current,
+    ScrollTrigger.create({
+      trigger:wrapperRef.current,
       start: "top top",
-      end:"end end",
-      snap:true,
-      pinSpacing:false,
-      onUpdate:()=>{
-        progressQ = Math.min(progressQ + 0.05, 1)
+      end:"bottom bottom",
+      scrub:true,
+      onUpdate:(self)=>{
+        progressQ.current = self.progress
       }
-    }
+    })
   
   },[])
 
