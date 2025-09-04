@@ -11,10 +11,8 @@
   -o-transform: scaleY(2);
 }
 
-.spin {
-  animation: spin 2s linear infinite; /* duration | timing | repeat */
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); } /* from is 0deg by default */
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,75 +1,60 @@
-import { useEffect, useRef } from 'react';
-import { useScroll, useTransform, motion, useSpring } from 'motion/react'; // Correct import path
-import * as THREE from 'three';
-import { getModel } from '../models/model.js';
+import { useEffect, useRef } from "react"
+import * as THREE from 'three' 
+import { getModel } from "../models/model"
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import ScrollTrigger from "gsap-trial/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
 
 export default function TopDownScene(){
-  const mountRef2 = useRef(null);
-  const sectionRef = useRef(null); 
-  const airplaneRef = useRef(null); 
+  const mountRef = useRef(null)
+  const jetRef = useRef(null)
+  let progressQ = 0
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef, 
-    offset: ['start start', 'end end'],
-  });
+  useEffect(()=>{
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(
+      75, 
+      mountRef.current.clientWidth / mountRef.current.clientHeight, 
+      0.1, 
+      10000
+    )
+    const startCamPos = new THREE.Vector3(0, 250, 0);
+    const endCamPos = new THREE.Vector3(0, 20, 150);
+    camera.position.copy(startCamPos) 
+    camera.lookAt(0,0,0)
 
-  const springMovement = useSpring(scrollYProgress, {
-    stiffness: 40,
-    damping: 50,
-  })
+    const light = new THREE.AmbientLight(0xffffff, 1)
+    scene.add(light)
 
-  const progress = useTransform(springMovement, [0, 1], [0, 1]);
+    const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
+    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight)
+    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setClearColor(0x000000, 0)
 
-  useEffect(() => {
-    if (!mountRef2.current || !sectionRef.current) return;
-    
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 6000);
-    
-    const startCamPos = new THREE.Vector3(0, 150, 0);
-    const endCamPos = new THREE.Vector3(0, 30, 100);
-    camera.position.copy(startCamPos);
-
-    const light = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(light);
-    const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-    scene.add( directionalLight );
-    directionalLight.position.set(0,300,50)
-    directionalLight.target.position.set(0, 25, 0);
-    scene.add(directionalLight.target);
-    
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(mountRef2.current.clientWidth, mountRef2.current.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setClearColor(0x000000, 0); 
-    
-    if (mountRef2.current.firstChild) {
-      mountRef2.current.removeChild(mountRef2.current.firstChild);
+    if(mountRef.current.firstChild){
+      mountRef.current.removeChild(mountRef.current.firstChild)
     }
-    mountRef2.current.appendChild(renderer.domElement);
+    mountRef.current.appendChild(renderer.domElement)
 
-    let loadedTarget = false
-
-    getModel('/jetWithLanding.glb').then(gltf => {
-      const airplaneModel = gltf.scene;
-      airplaneModel.scale.setScalar(0.15);
-      airplaneModel.position.set(0, 30, 50);
-      airplaneModel.rotation.y = Math.PI/2;
-      airplaneRef.current = airplaneModel;
-      scene.add(airplaneModel);
-
-      loadedTarget = true
-    });
-
-    getModel('/aircraftCarrier3.glb').then(gltf => {
-      const shipModel = gltf.scene;
-      shipModel.position.set(12, 0, -50);
+    getModel("/shipWithRunway.glb").then(gltf => {
+      const shipModel = gltf.scene
+      shipModel.scale.setScalar(14)
       shipModel.rotation.y = -0.16
-      scene.add(shipModel);
-    });
+      shipModel.position.set(190,-400,-800)
+      scene.add(shipModel)
+    })
 
-    // PMREM generator makes HDR environment usable
+    const startJetPos = new THREE.Vector3(0, 0, 0);
+    const endJetPos = new THREE.Vector3(0, 100, 300);
+
+    getModel("/jetWithLanding.glb").then(gltf => {
+      const jetModel = gltf.scene
+      jetRef.current = jetModel
+      jetModel.position.set(0,0,0)
+      jetModel.rotation.y = Math.PI / 2
+      scene.add(jetModel)
+    })
+
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
     pmremGenerator.compileEquirectangularShader();
 
@@ -78,80 +63,60 @@ export default function TopDownScene(){
       .load('citrus_orchard_road_puresky_2k.hdr', (texture) => {
         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
-        scene.background = envMap;   
-        scene.environment = envMap;  
+        scene.background = envMap;   // optional: shows as skybox
+        scene.environment = envMap;  // reflections & lighting
 
         texture.dispose();
         pmremGenerator.dispose();
       });
 
-    let frameId;
+    let frameId
+    let progressP = 0
     const animate = () => {
-      frameId = requestAnimationFrame(animate);
-
-      const scrollValue = progress.get();
-      camera.position.lerpVectors(startCamPos, endCamPos, scrollValue);
-      
-      if (loadedTarget && airplaneRef.current) {
-        camera.lookAt(airplaneRef.current.position);
-      }
-      
-      renderer.render(scene, camera);
-    };
-    animate();
+      frameId = requestAnimationFrame(animate)
+      progressP = Math.min(progressP + 0.005, 1)
+      camera.position.lerpVectors(startCamPos, endCamPos, progressP)
+      //jetRef.current.position.lerpVectors(startJetPos, endJetPos, progressP)
+      camera.lookAt(0,0,0)
+    
+      renderer.render(scene, camera)
+    }
+    animate()
 
     const handleResize = () => {
-      if (mountRef2.current) {
-        camera.aspect = mountRef2.current.clientWidth / mountRef2.current.clientHeight;
+      if (mountRef.current) {
+        camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(mountRef2.current.clientWidth, mountRef2.current.clientHeight);
+        renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
       }
     };
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (mountRef2.current && mountRef2.current.firstChild) {
-        mountRef2.current.removeChild(mountRef2.current.firstChild);
+      if (mountRef.current && mountRef.current.firstChild) {
+        mountRef.current.removeChild(mountRef.current.firstChild);
       }
       cancelAnimationFrame(frameId);
     };
-  }, [progress]);
+  },[])
+  
+  useEffect(()=>{
+
+    ScrollTrigger.create = {
+      trigger:mountRef.current,
+      start: "top top",
+      end:"end end",
+      snap:true,
+      pinSpacing:false,
+      onUpdate:()=>{
+        progressQ = Math.min(progressQ + 0.05, 1)
+      }
+    }
+  
+  },[])
 
   return (
-    <div ref={sectionRef} className="relative h-[250vh]" id="section2">
-      <img src="/cloudimg1" className='absolute top-0 z-10' alt="" />
-      <div className="sticky top-0 h-screen w-full z-0" ref={mountRef2}/>
-
-      <section className="w-full absolute top-80 flex flex-col items-center z-20">
-        <h2 className="text-4xl md:text-7xl font-bold mb-6 text-white text-center">UNMATCHED PERFORMANCE</h2>
-        <p className="max-w-2xl text-center text-gray-200 text-lg">
-          Thrust-vectoring engines, supermaneuverability, and cutting-edge avionics push the SU-35 beyond limits.
-        </p>
-
-        <div className="grid grid-cols-2 gap-[20rem] pt-40">
-          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
-            <h3 className="text-xl font-bold text-gray-200">2,500 km/h</h3>
-            <p className="text-gray-400">Top Speed</p>
-          </div>
-          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
-            <h3 className="text-xl font-bold text-gray-200">11,000 km</h3>
-            <p className="text-gray-400">Range</p>
-          </div>
-          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
-            <h3 className="text-xl font-bold text-gray-200">12</h3>
-            <p className="text-gray-400">Hardpoints</p>
-          </div>
-          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
-            <h3 className="text-xl font-bold text-gray-200">30mm</h3>
-            <p className="text-gray-400">Cannon</p>
-          </div>
-        </div>
-      </section>
-
-      <div className='absolute bottom-0 w-full flex justify-center'>
-        <h2 className="text-8xl font-bold mb-6 text-white text-center">DOMINATE THE SKY</h2>
-      </div>
-    </div>
-  );
+    <div ref={mountRef} className='sticky top-0 h-screen w-full z-0'/>
+  )
 }

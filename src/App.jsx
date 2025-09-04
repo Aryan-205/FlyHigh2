@@ -1,26 +1,49 @@
-import LandningPage from './components/LandingPage'
-import TopDownScene from './components/TopDownScene'
-import CockpitScene from './components/CockpitScene';
-import {motion} from 'motion/react'
+import gsap,{Power1} from 'gsap'
+import { useEffect } from 'react';
+import TopDownScene from './components/TopDownScene';
 
 export default function App() {
+    useEffect(()=>{
+        const tl = gsap.timeline()
+
+        tl.to("#textBox1", {
+        opacity: 0,              
+        delay: 0.5,
+        duration: 1.5,
+        ease: Power1.out,
+        onComplete: () => {
+            gsap.set("#textBox1", { display: "none" }) 
+        }
+        })
+        .to("#textBox2", {
+        opacity: 1, 
+        duration: 1.5,
+        ease: Power1.out
+        })
+        .to("#TextScene", {
+        opacity: 0,
+        duration: 1.5,
+        ease: Power1.out,
+        onComplete: ()=>{
+            gsap.set("#TextScene",{ display: none })
+        }
+        }, "+=2")
+    },[])
 
     return (
         <div className="w-full relative">
-            {/* <motion.div
-                className={`z-50 fixed inset-0 w-full h-full bg-white flex flex-col justify-center items-center`}
-                animate={{y:-1000}}
-                transition={{delay:3,duration:3}}
-                >
-                <img src="/jetSVG.svg" alt="" className='w-40 object-contain'/>
-                <div className="w-80 h-2 border border-black">
-                    <motion.div className='w-full bg-black h-full rounded-2xl' initial={{width:0}} animate={{width:"100%"}} transition={{duration:2.5}} />
-                </div>
-            </motion.div> */}
-            {/* <LandningPage/> */}
-            <TopDownScene/>
-            {/*<CockpitScene/> */}
-            
+            <div className='h-[200vh] w-full relative border border-blue-500'>
+                {/* <div id='TextScene' className='h-screen w-full bg-black flex-col flex-center z-[999] absolute top-0'>
+                    <div id='textBox1' className='flex-col flex-center'>
+                        <p className="text-white text-7xl font-bold">ARYAN BOLA</p>
+                        <p className="text-white text-3xl font-regular">Presents</p>
+                    </div>
+                    <div id='textBox2' className='opacity-0 flex-col flex-center'>
+                        <p className="text-white text-9xl font-bold">FLY HIGH</p>
+                    </div>
+                </div> */}
+                <TopDownScene/>
+            </div>
         </div>
     );
 };
