@@ -27,8 +27,8 @@ export default function TopDownScene(){
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 6000);
     
-    const startCamPos = new THREE.Vector3(0, 350, 0);
-    const endCamPos = new THREE.Vector3(0, 20, 250);
+    const startCamPos = new THREE.Vector3(0, 150, 0);
+    const endCamPos = new THREE.Vector3(0, 30, 100);
     camera.position.copy(startCamPos);
 
     const light = new THREE.AmbientLight(0xffffff, 1);
@@ -49,21 +49,24 @@ export default function TopDownScene(){
     }
     mountRef2.current.appendChild(renderer.domElement);
 
+    let loadedTarget = false
+
     getModel('/jetWithLanding.glb').then(gltf => {
-      const airplaneModel = gltf.scene.clone(true);
-      airplaneModel.position.set(0, 25, 0);
+      const airplaneModel = gltf.scene;
+      airplaneModel.scale.setScalar(0.15);
+      airplaneModel.position.set(0, 30, 50);
       airplaneModel.rotation.y = Math.PI/2;
-      airplaneModel.rotation.x = -0.05;
       airplaneRef.current = airplaneModel;
       scene.add(airplaneModel);
+
+      loadedTarget = true
     });
 
-    getModel('/aircraftCarrier2.glb').then(gltf => {
-      const airportModel = gltf.scene.clone(true);
-      airportModel.scale.setScalar(900);
-      airportModel.rotation.y = Math.PI
-      airportModel.position.set(6, -140, -1600);
-      scene.add(airportModel);
+    getModel('/aircraftCarrier3.glb').then(gltf => {
+      const shipModel = gltf.scene;
+      shipModel.position.set(12, 0, -50);
+      shipModel.rotation.y = -0.16
+      scene.add(shipModel);
     });
 
     // PMREM generator makes HDR environment usable
@@ -75,8 +78,8 @@ export default function TopDownScene(){
       .load('citrus_orchard_road_puresky_2k.hdr', (texture) => {
         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
-        scene.background = envMap;   // optional: shows as skybox
-        scene.environment = envMap;  // reflections & lighting
+        scene.background = envMap;   
+        scene.environment = envMap;  
 
         texture.dispose();
         pmremGenerator.dispose();
@@ -89,7 +92,7 @@ export default function TopDownScene(){
       const scrollValue = progress.get();
       camera.position.lerpVectors(startCamPos, endCamPos, scrollValue);
       
-      if (airplaneRef.current) {
+      if (loadedTarget && airplaneRef.current) {
         camera.lookAt(airplaneRef.current.position);
       }
       

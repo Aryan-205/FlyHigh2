@@ -17,9 +17,9 @@ export default function App() {
                     <motion.div className='w-full bg-black h-full rounded-2xl' initial={{width:0}} animate={{width:"100%"}} transition={{duration:2.5}} />
                 </div>
             </motion.div> */}
-            <LandningPage/>
-            {/* <TopDownScene/>
-            <CockpitScene/> */}
+            {/* <LandningPage/> */}
+            <TopDownScene/>
+            {/*<CockpitScene/> */}
             
         </div>
     );
