@@ -4,9 +4,10 @@ import { getModel } from "../models/model"
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { div } from "three/src/nodes/TSL.js";
 gsap.registerPlugin(ScrollTrigger)
 
-export default function TopDownScene({ wrapperRef }){
+export default function TopDownScene(){
   const mountRef = useRef(null)
   const jetRef = useRef(null)
   const progressQ = useRef(0)
@@ -120,7 +121,7 @@ export default function TopDownScene({ wrapperRef }){
   useEffect(()=>{
 
     ScrollTrigger.create({
-      trigger:wrapperRef.current,
+      trigger:"#mainBox",
       start: "top top",
       end:"bottom bottom",
       scrub:true,
@@ -132,6 +133,8 @@ export default function TopDownScene({ wrapperRef }){
   },[])
 
   return (
-    <div ref={mountRef} className='sticky top-0 h-screen w-full z-0'/>
+    <div id="mainBox" className="h-[200vh] w-full">
+      <div ref={mountRef} className='sticky top-0 h-screen w-full z-0'/>
+    </div>
   )
 }
