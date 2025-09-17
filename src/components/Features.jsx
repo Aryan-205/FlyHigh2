@@ -121,12 +121,12 @@ export default function Features() {
         <div
           id="id1"
           onClick={() => handleFeatureClick("vectorSystem")}
-          className={`feature-button bg-black border border-white text-white w-fit p-4 rounded-3xl cursor-pointer transition-all duration-500 ease-in-out ${
+          className={`feature-button font-light text-white w-fit p-4 rounded-3xl cursor-pointer transition-all duration-500 ease-in-out bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 bg-white ${
             activeFeature === "vectorSystem" ? "active" : ""
           }`}
         >
           <p className="text-xl">Vector system</p>
-          <p className="description text-md w-80 mt-2 overflow-hidden transition-all duration-500 ease-in-out">
+          <p className="description text-gray-300 text-md w-80 mt-2 overflow-hidden transition-all duration-500 ease-in-out">
             performance and battery. Aluminium alloy is remarkably light and has
             exceptional thermal conductivity.
           </p>
@@ -136,12 +136,12 @@ export default function Features() {
         <div
           id="id2"
           onClick={() => handleFeatureClick("anotherFeature")}
-          className={`feature-button bg-black border border-white text-white w-fit p-4 rounded-3xl cursor-pointer transition-all duration-500 ease-in-out ${
+          className={`feature-button font-light text-white w-fit p-4 rounded-3xl cursor-pointer transition-all duration-500 ease-in-out bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 bg-white ${
             activeFeature === "anotherFeature" ? "active" : ""
           }`}
         >
           <p className="text-xl">Another Feature</p>
-          <p className="description text-md w-80 mt-2 overflow-hidden transition-all duration-500 ease-in-out">
+          <p className="description text-gray-300 text-md w-80 mt-2 overflow-hidden transition-all duration-500 ease-in-out">
             This is the description for another cool feature. It has a lot of
             text to show the transition.
           </p>
@@ -151,12 +151,12 @@ export default function Features() {
         <div
           id="id3"
           onClick={() => handleFeatureClick("thirdFeature")}
-          className={`feature-button bg-black border border-white text-white w-fit p-4 rounded-3xl cursor-pointer transition-all duration-500 ease-in-out ${
+          className={`feature-button font-light text-white w-fit p-4 rounded-3xl cursor-pointer transition-all duration-500 ease-in-out bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 bg-white ${
             activeFeature === "thirdFeature" ? "active" : ""
           }`}
         >
           <p className="text-xl">Third Feature</p>
-          <p className="description text-md w-80 mt-2 overflow-hidden transition-all duration-500 ease-in-out">
+          <p className="description text-gray-300 text-md w-80 mt-2 overflow-hidden transition-all duration-500 ease-in-out">
             And here is a third feature with its own detailed information.
           </p>
         </div>
