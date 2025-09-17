@@ -51,7 +51,7 @@ export default function Intro(){
             <p className="text-white text-3xl font-regular">Presents</p>
         </div>
         <div id='textBox2' className='opacity-0 flex-col flex-center z-10'>
-            <p id='flyHigh' className="text-white text-9xl font-bold">FLY HIGH</p>
+            <p id='flyHigh' className="text-white text-9xl font-bold font-britney">FLY HIGH</p>
         </div>
         <div id='TextScene' className='h-screen w-full absolute inset-0 z-0 flex-center'>
             <div className='h-full w-full bg-black'/>
