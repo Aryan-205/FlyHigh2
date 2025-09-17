@@ -33,4 +33,21 @@
   font-style: normal;
 }
 
+/* Add this to your main CSS file, e.g., index.css or global.css */
+
+.feature-button .description {
+  max-height: 0;
+  opacity: 0;
+}
+
+.feature-button.active .description {
+  max-height: 200px; /* A value large enough to contain the text */
+  opacity: 1;
+}
+
+/* Optional: Add a subtle scale effect on the active button */
+.feature-button.active {
+  transform: scale(1.05);
+}
+
 /* You might only need one of the above if the variable font covers all weights */

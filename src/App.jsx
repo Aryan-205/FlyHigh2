@@ -15,10 +15,11 @@ export default function App() {
                         <p>About</p>
                     </div>
                 </nav>
-                <Intro/>
+                {/* <Intro/> */}
                 <FrontScene/>
-                {/* <Features/> */}
+                <Features/>
             </div>
         </div>
     );
 };
+//no church in the wild

@@ -17,7 +17,7 @@ export default function FrontScene(){
     camera.position.set(0,24,-300)
     camera.lookAt(0,0,0)
 
-    const light = new THREE.AmbientLight(0xffefc7, 1)
+    const light = new THREE.AmbientLight(0xdeebfa, 1)
     scene.add(light)
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -31,6 +31,15 @@ export default function FrontScene(){
     directionalLight2.target.position.set(-20, 0, 0); // Point the light at the center of the scene
     scene.add(directionalLight2) // Point the light at the center of the scene
     scene.add(directionalLight2.target) // Point the light at the center of the scene
+
+    const directionalLight3 = new THREE.DirectionalLight(0xffcc8a, 0.51);
+    directionalLight3.position.set(-50, 0, -100); // Example position
+    directionalLight3.target.position.set(-20, 0, 0); // Point the light at the center of the scene
+    scene.add(directionalLight3) // Point the light at the center of the scene
+    scene.add(directionalLight3.target) // Point the light at the center of the scene
+
+    // const helper = new THREE.DirectionalLightHelper(directionalLight3, 2)
+    // scene.add(helper)
 
     const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight)
@@ -79,7 +88,7 @@ export default function FrontScene(){
   },[])
 
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full relative">
       <div className="z-20 flex flex-col justify-between absolute inset-0 w-full h-full overflow-hidden">
         <div className="flex flex-col items-center justify-start pt-40 gap-12 font-extrabold  text-white/80">
           <p className='text-4xl text-center tracking-wider'>The SU-35 Super Flanker</p>
@@ -91,9 +100,9 @@ export default function FrontScene(){
           <img src="down-arrow.png" className="w-auto h-12" alt="" />
         </div>
       </div>
-      <div ref={mountRef} className='h-screen w-full z-30 sticky'/>
-      <img src="/bgImg.png" className="absolute inset-0 h-full w-full z-0" alt="" />
-      <img src="/shadow.png" className="absolute top-[60%] left-[28%] opacity-70 h-40 w-[40rem] z-10" 
+      <div ref={mountRef} className='h-screen w-full z-30 absolute'/>
+      <img src="/bgImg2.png" className="absolute inset-0 h-full w-full z-0 object-cover" alt="" />
+      <img src="/shadow.png" className="absolute top-[60%] left-[20%] opacity-70 h-40 w-[40rem] z-10" 
       alt="" />
     </div>
   )
