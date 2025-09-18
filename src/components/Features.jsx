@@ -2,19 +2,31 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { getModel } from "../models/model";
 
-// Define the target rotations for each feature
-const featureRotations = {
-  default: { x: 0, y: Math.PI / 2, z: 0 },
-  vectorSystem: { x: 0.2, y: Math.PI / 2 + 0.5, z: 0.1 },
-  // Add rotations for the other features
-  anotherFeature: { x: -0.1, y: Math.PI / 2 - 0.5, z: 0.2 },
-  thirdFeature: { x: 0.3, y: Math.PI / 2, z: -0.1 },
+
+const featureTransforms = {
+  default: {
+    rotation: new THREE.Euler(0, Math.PI / 2, 0),
+    position: new THREE.Vector3(0, 0, 0),
+  },
+  vectorSystem: {
+    rotation: new THREE.Euler(0.2, Math.PI / 2 + 0.5, 0.1),
+    position: new THREE.Vector3(0, 10, -50),
+  },
+  anotherFeature: {
+    rotation: new THREE.Euler(-0.1, Math.PI / 2 - 0.5, 0.2),
+    position: new THREE.Vector3(50, -20, 0),
+  },
+  thirdFeature: {
+    rotation: new THREE.Euler(0.3, Math.PI / 2, -0.1),
+    position: new THREE.Vector3(-40, 30, 0),
+  },
 };
 
 export default function Features() {
   const mountRef = useRef(null);
   const jetRef = useRef(null);
   const targetRotation = useRef(new THREE.Quaternion());
+  const targetPosition = useRef(new THREE.Vector3());
 
   const [activeFeature, setActiveFeature] = useState("default");
 
@@ -61,12 +73,13 @@ export default function Features() {
       frameId = requestAnimationFrame(animate);
 
       if (jetRef.current) {
-        // Create a Quaternion from the current rotation
+        // Interpolate rotation
         const currentQuaternion = new THREE.Quaternion().copy(jetRef.current.quaternion);
-        // Interpolate between the current and target quaternions
         currentQuaternion.slerp(targetRotation.current, 0.05);
-        // Apply the new interpolated rotation
         jetRef.current.quaternion.copy(currentQuaternion);
+
+        // Interpolate position
+        jetRef.current.position.lerp(targetPosition.current, 0.05);
       }
 
       renderer.render(scene, camera);
@@ -91,18 +104,13 @@ export default function Features() {
     };
   }, []);
 
-  // Use a second useEffect to handle rotation changes
+  // Use a second useEffect to handle rotation and position changes
   useEffect(() => {
-    // Get the target Euler angles from our predefined rotations
-    const targetEuler = new THREE.Euler().setFromVector3(
-      new THREE.Vector3(
-        featureRotations[activeFeature].x,
-        featureRotations[activeFeature].y,
-        featureRotations[activeFeature].z
-      )
-    );
+    const transform = featureTransforms[activeFeature];
     // Convert Euler to Quaternion and store in the ref
-    targetRotation.current.setFromEuler(targetEuler);
+    targetRotation.current.setFromEuler(transform.rotation);
+    // Store the target position in the ref
+    targetPosition.current.copy(transform.position);
   }, [activeFeature]);
 
   const handleFeatureClick = (feature) => {
