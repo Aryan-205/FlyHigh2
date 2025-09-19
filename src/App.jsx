@@ -1,6 +1,7 @@
 import Intro from './components/Intro';
 import FrontScene from './components/FrontScene';
 import Features from './components/Features';
+import CockpitScene from './components/Cockpit';
 
 export default function App() {    
 
@@ -15,9 +16,10 @@ export default function App() {
                         <p>About</p>
                     </div>
                 </nav>
-                {/* <Intro/> */}
+                <Intro/>
                 <FrontScene/>
                 <Features/>
+                {/* <CockpitScene/> */}
             </div>
         </div>
     );
