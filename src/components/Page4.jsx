@@ -12,11 +12,11 @@ export default function Page4() {
       </nav>
       <div className="h-full flex justify-start gap-12 items-center ">
         <div>
-          <h1 className="saira-stencil-one-regular font-bold text-4xl">
+          <h1 className="font-bold text-4xl pl-4">
             Features
           </h1>
           <div>
-            <p>SU-25 Abilities</p>
+            <p className="pl-4 pb-8">SU-25 Abilities</p>
             <div className="h-full flex flex-col justify-center items-start gap-4">
               <button 
                 onClick={() => setActiveFeature("vector")} 
