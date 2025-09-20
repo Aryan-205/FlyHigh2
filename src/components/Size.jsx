@@ -1,4 +1,4 @@
-export default function Page3(){
+export default function Size(){
 
   return (
     <div className="h-screen w-full sticky top-0 bg-white px-20 py-4 flex flex-col justify-between">
@@ -17,8 +17,8 @@ export default function Page3(){
         </div>
       </div>
       <footer className="border-t-2 border-black flex items-center justify-end gap-4">
-        <p className="text-black">FlyHigh</p>
-        <p className="text-white bg-black px-4 py-2">3</p>
+        <p className="text-black">Size</p>
+        <p className="text-white bg-black px-4 py-2">2</p>
       </footer>
     </div>
   )

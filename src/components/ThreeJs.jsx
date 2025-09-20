@@ -371,18 +371,28 @@ const PlaneScene = ({ activeFeature, showXRay, showWireframe }) => {
       rotation: new THREE.Euler(0, Math.PI / 2, 0),
     },
     {
-      progress: 1/3,
-      position: new THREE.Vector3(80, -20, 80),
-      rotation: new THREE.Euler(-0.2, -(Math.PI / 2 + 0.3) , 0), // Bank slightly
+      progress: 0.2,
+      position: new THREE.Vector3(0, -50, 150),
+      rotation: new THREE.Euler(0, -Math.PI/2, Math.PI/2), // Bank slightly
     },
     {
-      progress: 2/3,
+      progress: 0.4,
       position: new THREE.Vector3(50, 20, 300),
       rotation: new THREE.Euler(-Math.PI/2, 0, 0),
     },
     {
-      progress: 1,
+      progress: 0.6,
       position: new THREE.Vector3(-70, 20, -80),
+      rotation: new THREE.Euler(-0.3, -(Math.PI/2+0.6), 0), // Dive and turn
+    },
+    {
+      progress: 0.8,
+      position: new THREE.Vector3(-0, 20, -80),
+      rotation: new THREE.Euler(-0.3, -(Math.PI/2), 0), // Dive and turn
+    },
+    {
+      progress: 1,
+      position: new THREE.Vector3(-70, 20, 0),
       rotation: new THREE.Euler(-0.3, -(Math.PI/2+0.6), 0), // Dive and turn
     }
   ];

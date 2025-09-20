@@ -1,4 +1,4 @@
-export default function Page2(){
+export default function Design(){
 
   return (
     <div className="h-screen w-full sticky top-0 bg-white px-20 py-4 flex flex-col justify-between">
@@ -6,7 +6,7 @@ export default function Page2(){
         <p className="text-black">SU-35</p>
         <p className="text-white bg-black px-4 py-2">Flanker</p>
       </nav>
-        <h1 className="saira-stencil-one-regular font-bold text-4xl">GENERAL DESIGN</h1>
+        <h1 className="font-bold text-4xl">GENERAL DESIGN</h1>
       <div>
         <p className="font-semibold text-2xl">Design</p>
         <p className="font-medium text-lg">The Su-33 is built according to a normal aerodynamic scheme with additional front pylons and has an integrated configuration.</p>
@@ -25,8 +25,8 @@ aircraft's take-off and landing modes.</p>
         </div>
       </div>
       <footer className="border-t-2 border-black flex items-center justify-end gap-4">
-        <p className="text-black">FlyHigh</p>
-        <p className="text-white bg-black px-4 py-2">2</p>
+        <p className="text-black">Design</p>
+        <p className="text-white bg-black px-4 py-2">1</p>
       </footer>
     </div>
   )
