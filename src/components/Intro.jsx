@@ -10,7 +10,6 @@ export default function Intro(){
 
         let split = SplitText.create("#flyHigh", { type: "words, chars" });
 
-
         tl.to("#textBox1", {
         opacity: 0,              
         delay: 1,

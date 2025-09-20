@@ -89,6 +89,14 @@ export default function FrontScene(){
 
   return (
     <div className="h-screen w-full relative">
+      <nav className="flex-center w-full">
+          <div className="text-white text-2xl font-light flex gap-20 pt-20 absolute z-[100]">
+              <p>Hanger</p>
+              <p>Ability</p>
+              <p>Cockpit</p>
+              <p>About</p>
+          </div>
+      </nav>
       <div className="z-20 flex flex-col justify-between absolute inset-0 w-full h-full overflow-hidden">
         <div className="flex flex-col items-center justify-start pt-40 gap-12 font-extrabold  text-white/80">
           <p className='text-4xl text-center tracking-wider'>The SU-35 Super Flanker</p>
