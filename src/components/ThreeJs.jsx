@@ -42,7 +42,6 @@ const PlaneScene = ({ activeFeature, showXRay, showWireframe }) => {
 
   const scrollProgressRef = useRef(0);
 
-  // Define the animation stages based on scroll progress (0 to 1)
   const animationStages = [
     {
       progress: 0,
@@ -51,28 +50,28 @@ const PlaneScene = ({ activeFeature, showXRay, showWireframe }) => {
     },
     {
       progress: 0.2,
-      position: new THREE.Vector3(0, -50, 150),
-      rotation: new THREE.Euler(0, -Math.PI/2, Math.PI/2), // Bank slightly
+      position: new THREE.Vector3(0, 40, 150),
+      rotation: new THREE.Euler(0, Math.PI/2, -0.3), 
     },
     {
       progress: 0.4,
-      position: new THREE.Vector3(-50, 20, 0),
+      position: new THREE.Vector3(50, 20, 80),
       rotation: new THREE.Euler(-0.3, -(Math.PI/2+0.6), 0),
     },
     {
       progress: 0.6,
       position: new THREE.Vector3(50, 20, 250),
-      rotation: new THREE.Euler(-Math.PI/2, 0, 0), // Dive and turn
+      rotation: new THREE.Euler(-Math.PI/2, 0, 0), 
     },
     {
       progress: 0.8,
       position: new THREE.Vector3(0, 5, -384),
-      rotation: new THREE.Euler(0.01, -(Math.PI/2), 0), // Dive and turn
+      rotation: new THREE.Euler(0.01, -(Math.PI/2), 0),
     },
     {
       progress: 1,
       position: new THREE.Vector3(70, 20, -80),
-      rotation: new THREE.Euler(-0.3, -(Math.PI/2-0.6), 0), // Dive and turn
+      rotation: new THREE.Euler(-0.3, -(Math.PI/2-0.6), 0), 
     }
   ];
 

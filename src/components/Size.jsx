@@ -2,6 +2,16 @@ export default function Size(){
 
   return (
     <div className="h-screen w-full sticky top-0 bg-white px-20 py-4 flex flex-col justify-between">
+      <div className="absolute top-28 right-20 z-10">
+          <button
+            //onClick={startAnimation}
+            className="p-4 bg-black text-white hover:bg-white hover:text-black hover:border-black border-2"
+          >
+            Mesh Structure
+          </button>
+        {/* {!isAnimated && (
+        )} */}
+      </div>
       <nav className="border-b-2 border-black flex items-center justify-end gap-4">
         <p className="text-black">SU-35</p>
         <p className="text-white bg-black px-4 py-2">Flanker</p>

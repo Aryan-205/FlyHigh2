@@ -11,11 +11,11 @@ export default function App() {
 
     return (
         <div className="w-full h-[600vh] relative bg-white">
-          {/* <div className='fixed top-0 h-screen w-full z-10'>
+          <div className='fixed top-0 h-screen w-full z-10 pointer-events-none'>
             <ThreeJs/>
-          </div> */}
+          </div>
           <div>
-            {/* <Intro/> */}
+            <Intro/>
             <FrontScene/>
             <Table/>
             <Design/>

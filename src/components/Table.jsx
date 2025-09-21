@@ -33,7 +33,7 @@ export default function Table() {
         <motion.div
           whileHover="hover"
           variants={containerVariants}
-          className={`w-[25%] h-[100%] overflow-hidden`}
+          className={`w-[25%] h-[100%] border-r overflow-hidden`}
           onClick={()=>setActiveFeature("stealth")}
         >
           <motion.div
@@ -61,7 +61,7 @@ export default function Table() {
         <motion.div
           whileHover="hover"
           variants={containerVariants}
-          className={`w-[25%] h-[100%] overflow-hidden`}
+          className={`w-[25%] h-[100%] border-r overflow-hidden`}
         >
           <motion.div
             variants={childVariants}
@@ -88,7 +88,7 @@ export default function Table() {
         <motion.div
           whileHover="hover"
           variants={containerVariants}
-          className={`w-[25%] h-[100%] overflow-hidden`}
+          className={`w-[25%] h-[100%] border-r overflow-hidden`}
         >
           <motion.div
             variants={childVariants}
@@ -104,7 +104,7 @@ export default function Table() {
           >
             <p className="text-4xl font-bold">03</p>
             <div className="flex flex-col gap-4">
-              <img src="/blacksuper.png" className="w-80 top-32 -right-20 h-auto absolute" alt="" />
+              <img src="/blacksuper.png" className="w-80 top-28 -right-20 h-auto absolute" alt="" />
               <p className="text-2xl font-bold">Sustained Supersonic Flight</p>
               <p className="text-xs font-semibold">
                 Supercruise is the ability to fly at supersonic speeds without using afterburners. The jet's high-efficiency engines enable this, extending its range and allowing it to cover vast distances quickly.
