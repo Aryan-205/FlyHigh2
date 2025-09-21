@@ -36,7 +36,7 @@ export default function Cockpit(){
         </div>
       <footer className="border-t-2 border-black flex items-center justify-end gap-4">
         <p className="text-black">Cockpit</p>
-        <p className="text-white bg-black px-4 py-2">4</p>
+        <p className="text-white bg-black px-4 py-2">3</p>
       </footer>
     </div>
   )

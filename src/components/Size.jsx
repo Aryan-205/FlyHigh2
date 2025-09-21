@@ -12,7 +12,7 @@ export default function Size(){
           <p className="text-blue-500 font-medium">Figure 3: Su-33 drawings</p>
         </div>
         <div className="flex flex-col justify-between items-start h-full">
-          <h1 className="saira-stencil-one-regular font-bold text-4xl">GENERAL DESIGN</h1>
+          <h1 className="saira-stencil-one-regular font-bold text-4xl">GENERAL DIMENTIONS</h1>
           <p>The fairings of the chassis smoothly transition into the tail beams, serving as platforms for the installation of: all-moving stabilizer panels with a straight axis of rotation, two-kilo tail fins spaced apart from the outer edges of the tail stinger, and underside fins. The panels of the all-moving front canards, installed on the leading edge root extension of the wing, serve to increase the load-bearing properties of the airframe and improve the flight characteristics of the aircraft at large angles of attack. To reduce the size of the aircraft during storage in the ship hangar and parking at the technical positions of the upper deck, the wing and horizontal tail units can be folded. The aircraft is equipped with a retractable three-point undercarriage with telescopic struts on the main and front </p>
         </div>
       </div>

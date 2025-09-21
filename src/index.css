@@ -49,5 +49,3 @@
 .feature-button.active {
   transform: scale(1.05);
 }
-
-/* You might only need one of the above if the variable font covers all weights */
