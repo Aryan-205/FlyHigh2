@@ -24,7 +24,7 @@ export default function Table() {
   const [activeFeature, setActiveFeature] = useState("default")
 
   return (
-    <div className="h-screen w-full sticky top-0 bg-white px-20 py-4 flex flex-col">
+    <div className="h-screen w-full relative bg-white px-20 py-4 flex flex-col">
       <nav className="border-b-2 border-black flex items-center justify-end gap-4">
         <p className="text-black">SU-35</p>
         <p className="text-white bg-black px-4 py-2">Flanker</p>

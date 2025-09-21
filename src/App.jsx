@@ -1,27 +1,21 @@
-import Intro from './components/Intro';
 import FrontScene from './components/FrontScene';
-import ThreeJs from './components/ThreeJs';
 import Table from './components/Table';
-import Design from './components/Design';
-import Size from './components/Size';
-import Cockpit from './components/Cockpit';
-import Engine from './components/Engine';
 
 export default function App() {    
 
     return (
-        <div className="w-full h-[600vh] relative bg-white">
-          <div className='fixed top-0 h-screen w-full z-10 pointer-events-none'>
+        <div className="w-full relative bg-white">
+          {/* <div className='fixed top-0 h-screen w-full z-10'>
             <ThreeJs/>
-          </div>
+          </div> */}
           <div>
-            <Intro/>
+            {/* <Intro/> */}
             <FrontScene/>
             <Table/>
-            <Design/>
+            {/* <Design/>
             <Size/>
             <Cockpit/>
-            <Engine/>
+            <Engine/> */}
           </div>
         </div>
     );
