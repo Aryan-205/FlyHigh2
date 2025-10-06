@@ -1,68 +1,58 @@
-import { useEffect, useRef } from "react";
-import { Canvas, useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-
-const modelPath = "/AdvancedJet.glb";
-
-const PlaneScene = () => {
-  const jetRef = useRef(null);
-
-  const gltf = useLoader(GLTFLoader, modelPath);
-
-  const { scene } = useThree();
-
-  useEffect(() => {
-    const jetModel = gltf.scene.clone();
-    jetModel.position.set(0, 0, 0);
-    jetModel.rotation.y = Math.PI / 2;
-    jetRef.current = jetModel;
-    scene.add(jetModel);
-
-    return () => {
-      if (jetRef.current) scene.remove(jetRef.current);
-    };
-  }, [gltf, scene]);
-
-  return null;
-};
+import { useEffect, useRef, useState } from "react";
 
 export default function FrontScene(){
+  const [activeNav, setActiveNav] = useState('Home');
+
+  // Placeholder for any animations or state logic
+  useEffect(() => {
+    // This could be used for a smooth scrolling effect or other UI animations
+  }, []);
 
   return (
-    <div className="h-screen w-full relative">
-      <div className="absolute z-20 inset-0 w-full h-full">
-        <Canvas camera={{ position: [0, 20, -300], fov: 25, far: 10000 }}>
-          {/* Set up lights and other scene elements */}
-          <ambientLight intensity={2} color={0xfff8de} />
-          <directionalLight position={[50, 50, 50]} intensity={2} />
-          <PlaneScene />
-        </Canvas>
-        <img
-          src="/shadow.png"
-          className="absolute top-[60%] left-[30%] opacity-70 h-40 w-[40rem] z-[49]"
-          alt=""
-        />
-      </div>
-      <img src="/bgImg.png" className="absolute inset-0 z-0 h-full w-full object-cover" alt="" />
-      <div className="flex flex-col w-full h-full overflow-hidden">
-        <nav className="flex justify-center w-full">
-            <div className="text-white text-3xl font-light pt-4">
-                <p>User manual</p>
+    <div className="h-screen w-full relative bg-cover bg-center overflow-hidden">
+
+      <img src="/bgImg2.png" alt="" className="w-full h-full object-cover absolute inset-0" />
+
+      {/* Main Content & Navigation Container */}
+      <div className="flex flex-col w-full h-full z-20">
+
+        {/* Navigation */}
+        <nav className="flex justify-center w-full py-4 px-8">
+            <div className="text-white text-lg sm:text-2xl font-light pt-4 flex gap-8">
+                {['Home', 'Fly By', 'Engine', 'Cockpit'].map(item => (
+                    <button
+                        key={item}
+                        onClick={() => setActiveNav(item)}
+                        className={`transition-colors duration-300 ${activeNav === item ? 'font-bold text-white' : 'text-gray-400 hover:text-white'} focus:outline-none`}
+                    >
+                        {item}
+                    </button>
+                ))}
             </div>
         </nav>
-        <div className="flex flex-col justify-between items-center h-full w-full">
-          <div className="flex flex-col items-center justify-start font-extrabold text-white/80 gap-12 pt-12">
-            <p className='text-4xl text-center tracking-wider'>The SU-35 Super Flanker</p>
-            <p className='text-9xl text-center vertical-stretch'>MASTERING SKY</p>
+
+        {/* Content Section */}
+        <div className="flex flex-col justify-between items-center h-full w-full py-8 px-4">
+          <div className="flex flex-col items-center justify-start font-extrabold text-white/80 gap-6 sm:gap-12 pt-12 text-center">
+            <p className='text-3xl sm:text-4xl tracking-wider'>The SU-35 Super Flanker</p>
+            <h1 className='text-6xl sm:text-9xl vertical-stretch leading-none'>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-500">
+                    MASTERING SKY
+                </span>
+            </h1>
           </div>
-          <div className="flex flex-col justify-end items-center text-white text-lg">
-            <p>Experience unmatched Thrust, manuverability and state of-strat avionics</p>
-            <p>Future of aerial supority</p>
-            <img src="down-arrow.png" className="w-auto h-12" alt="" />
+
+          {/* Call to Action */}
+          <div className="flex flex-col justify-end items-center text-white text-center text-sm sm:text-lg mb-8">
+            <p>Experience unmatched thrust, maneuverability and state-of-the-art avionics.</p>
+            <p className="mt-2">Future of aerial superiority</p>
+            {/* Replaced ChevronDown with an inline SVG */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-12 sm:h-12 mt-4 animate-bounce">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </div>
         </div>
       </div>
     </div>
   )
 }
-
